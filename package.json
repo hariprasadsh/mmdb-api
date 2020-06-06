@@ -1,0 +1,30 @@
+{
+  "name": "mmdb-api",
+  "version": "1.0.0",
+  "description": "api for mmdb angular app using mongodb",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "mmdb-api"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongodb",
+    "api",
+    "json",
+    "crud",
+    "resful"
+  ],
+  "author": "Hari",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18",
+    "nodemon": "^2.0.4"
+  }
+}
