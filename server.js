@@ -34,6 +34,12 @@ app.get("/", (req, res) => {
   res.json({ message: "MMDB API" });
 });
 
+// require genre routes
+const genreRoutes = require("./src/routes/genre.routes");
+
+// using as middleware
+app.use("/api/genre", genreRoutes);
+
 // listen for requests
 app.listen(port, () => {
   console.log("MMDB API server is listening on port " + port);
