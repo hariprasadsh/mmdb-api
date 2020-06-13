@@ -43,10 +43,85 @@ exports.create = (req, res) => {
 };
 
 // find a genre by id
-exports.findById = (req, res) => {};
+exports.findById = (req, res) => {
+  Genre.findById(req.params.id)
+    .then((genre) => {
+      if (!genre) {
+        return res.status(404).send({
+          message: "Genre not found with id: " + req.params.id,
+        });
+      }
+      res.send(genre);
+    })
+    .catch((err) => {
+      if (err.kind === "ObjectId") {
+        return res.status(404).send({
+          message: "Genre not found with id: " + req.params.id,
+        });
+      }
+      return res.status(500).send({
+        message: "Error getting genre with id: " + req.params.id,
+      });
+    });
+};
 
 // update genre by id
-exports.update = (req, res) => {};
+exports.update = (req, res) => {
+  // validate request
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Please fill all required field",
+    });
+  }
+
+  Genre.findByIdAndUpdate(
+    req.params.id,
+    {
+      name: req.body.name,
+      tag: req.body.tag,
+      desc: req.body.desc,
+    },
+    { new: true }
+  )
+    .then((genre) => {
+      if (!genre) {
+        return res.status(404).send({
+          message: "Genre not found with id: " + req.params.id,
+        });
+      }
+      res.send(genre);
+    })
+    .catch((err) => {
+      if (err.kind === "ObjectId") {
+        return res.send(404).send({
+          message: "Genre not found with id: " + req.params.id,
+        });
+      }
+      return res.send(500).send({
+        message: "Error getting genre with id: " + req.params.id,
+      });
+    });
+};
 
 // delete a genre by id
-exports.delete = (req, res) => {};
+exports.delete = (req, res) => {
+  Genre.findByIdAndRemove(req.params.id)
+    .then((genre) => {
+      if (!genre) {
+        return res.status(404).send({
+          message: "Genre not found with id: " + req.params.id,
+        });
+      }
+      res.send({ message: "Genre deleted successfully!" });
+    })
+    .catch((err) => {
+      if (err.kind === "ObjectId") {
+        return res.send(404).send({
+          message: "Genre not found with id: " + req.params.id,
+        });
+      }
+      return res.send(500).send({
+        message: "Error getting genre with id: " + req.params.id,
+      });
+    });
+};
