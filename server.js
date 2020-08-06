@@ -1,8 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // create express app
 const app = express();
+
+// allow all cross origin requests
+app.use(cors());
 
 // server port
 const port = process.env.port || 4000;
