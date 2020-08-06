@@ -1,8 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // create express app
 const app = express();
+
+// allow all cross origin requests
+app.use(cors());
 
 // server port
 const port = process.env.port || 4000;
@@ -33,6 +37,12 @@ mongoose
 app.get("/", (req, res) => {
   res.json({ message: "MMDB API" });
 });
+
+// require genre routes
+const genreRoutes = require("./src/routes/genre.routes");
+
+// using as middleware
+app.use("/api/genre", genreRoutes);
 
 // listen for requests
 app.listen(port, () => {
